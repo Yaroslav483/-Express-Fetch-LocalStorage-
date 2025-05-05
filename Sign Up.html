@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>China</title>
+  <title>China - Sign Up</title>
   <link rel="stylesheet" href="styles-sign.css" />
 </head>
 <body>
@@ -19,7 +19,7 @@
       <div>
         <label for="password">Password</label>
         <div class="input-with-icon">
-          <input type="password" id="password" class="pass" required minlength="8" />
+          <input type="password" id="password" class="pass" required />
           <img class="eye" src="https://cdn-icons-png.flaticon.com/128/98/98494.png" alt="eye icon" id="togglePassword" style="width: 20px; cursor: pointer;" />
         </div>
       </div>
@@ -28,35 +28,8 @@
     </form>
   </main>
 
-  <script>
-    // Toggle password visibility
-    document.getElementById('togglePassword').addEventListener('click', () => {
-      const passwordField = document.getElementById('password');
-      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
-    });
-
-    // Handle sign up form
-    document.getElementById('signUpForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      const res = await fetch('http://localhost:3000/sign-up', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert('Реєстрація успішна!');
-        window.location.href = 'sign-in.html';
-      } else {
-        alert(data.message);
-      }
-    });
-  </script>
+  <script src="sign-up.js"></script>
 </body>
 </html>
+
 
