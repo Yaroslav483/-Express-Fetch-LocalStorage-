@@ -8,10 +8,9 @@
 </head>
 <body>
   <main>
-    <img src="https://yt3.googleusercontent.com/C-i_-B5vyGIRiQ8VevXutxTcV4csO9_b5rcCQi87wNYggBZJAH0N0_BuJUFV-NOAla8S2Abfgg=s900-c-k-c0x00ffffff-no-rj" alt="" class="logo" />
+    <img src="https://yt3.googleusercontent.com/C-i_-B5vyGIRiQ8VevXutxTcV4csO9_b5rcCQi87wNYggBZJAH0N0_BuJUFV-NOAla8S2Abfgg=s900-c-k-c0x00ffffff-no-rj" alt="logo" class="logo" />
     <p class="welcome-message">Welcome to Чина Coin</p>
     <p class="subtitle">Sign in</p>
-
     <form id="signInForm">
       <div>
         <label for="email">Email</label>
@@ -21,17 +20,44 @@
         <label for="password">Password</label>
         <div class="input-with-icon">
           <input type="password" id="password" class="pass" required />
-          <img class="eye" src="https://cdn-icons-png.flaticon.com/128/98/98494.png" alt="eye icon" />
+          <img class="eye" src="https://cdn-icons-png.flaticon.com/128/98/98494.png" alt="eye icon" id="togglePassword" style="width: 20px; cursor: pointer;" />
         </div>
       </div>
       <button type="submit">Sign in</button>
-      <p class="account">
-        Don’t have account yet? <a href="sign-up.html">Sign up</a>
-      </p>
+      <p class="account">Don’t have an account yet? <a href="sign-up.html">Sign up</a></p>
     </form>
   </main>
 
-  <script src="script-sign.js"></script>
+  <script>
+   
+    document.getElementById('togglePassword').addEventListener('click', () => {
+      const passwordField = document.getElementById('password');
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    });
+
+   
+    document.getElementById('signInForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const res = await fetch('http://localhost:3000/sign-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        alert('Успішний вхід!');
+        
+      } else {
+        alert(data.message);
+      }
+    });
+  </script>
 </body>
 </html>
 
