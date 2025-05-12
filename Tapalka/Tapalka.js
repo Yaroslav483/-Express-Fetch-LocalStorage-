@@ -80,4 +80,35 @@ fetch('http://localhost:3000/upgrades')
       shop.appendChild(div);
     });
   });
+const totalCoinsDisplay = document.querySelector('.stats-container div:first-child'); 
+const userCoinsDisplay = document.querySelector('.user-info span:last-child');
+
+function updateBalanceDisplay(balance) {
+  totalCoinsDisplay.innerHTML = `💰 ${balance}<br>Total ClickCoins`;
+  userCoinsDisplay.innerHTML = `💰 ${balance}`;
+}
+
+
+document.querySelector('.game-button').addEventListener('click', async () => {
+  try {
+    const res = await fetch('http://localhost:3000/click', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) updateBalanceDisplay(data.balance);
+    else alert(data.message);
+  } catch (err) {
+    alert('Помилка сервера');
+  }
+});
+
+
+setInterval(async () => {
+  try {
+    const res = await fetch('http://localhost:3000/passive-income', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) updateBalanceDisplay(data.balance);
+  } catch (err) {
+    console.error('Пасивний дохід не спрацював');
+  }
+}, 1000);
+
 
