@@ -80,9 +80,6 @@ fetch('http://localhost:3000/upgrades')
       shop.appendChild(div);
     });
   });
-const totalCoinsDisplay = document.querySelector('.stats-container div:first-child'); 
-const userCoinsDisplay = document.querySelector('.user-info span:last-child');
-
 function updateBalanceDisplay(balance) {
   totalCoinsDisplay.innerHTML = `💰 ${balance}<br>Total ClickCoins`;
   userCoinsDisplay.innerHTML = `💰 ${balance}`;
@@ -110,5 +107,3 @@ setInterval(async () => {
     console.error('Пасивний дохід не спрацював');
   }
 }, 1000);
-
-
